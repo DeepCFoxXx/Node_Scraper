@@ -1,11 +1,16 @@
-import { getHTML, getInstagramCount, getTwitterCount } from "./lib/scraper";
+import express from "express";
+import { getInstagramCount, getTwitterCount } from "./lib/scraper";
 
-async function go() {
+const app = express();
+
+app.get("/scrape", async (req, res, next) => {
+  console.log("Scraping!");
   const [iCount, tCount] = await Promise.all([
     getInstagramCount(),
     getTwitterCount()
   ]);
   console.log(iCount, tCount);
-}
+  res.json({ iCount, tCount });
+});
 
-go();
+app.listen(2093, () => console.log(`App Running On Port 2093`));
