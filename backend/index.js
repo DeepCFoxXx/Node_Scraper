@@ -1,6 +1,7 @@
 import express from "express";
 import { getInstagramCount, getTwitterCount } from "./lib/scraper";
 import "./lib/cron";
+import db from "./lib/db";
 
 const app = express();
 
@@ -13,4 +14,11 @@ app.get("/scrape", async (req, res, next) => {
   res.json({ iCount, tCount });
 });
 
-app.listen(2093, () => console.log(`App Running On Port 2093`));
+app.get("/data", async (req, res, next) => {
+  const twitter = db.get("twitter").value;
+  res.json(twitter);
+});
+
+app.listen(2093, () =>
+  console.log(`App Running On Port http://localhost:2093`)
+);
