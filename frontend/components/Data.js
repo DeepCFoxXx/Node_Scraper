@@ -7,6 +7,7 @@ export default function Data() {
   return (
     <div>
       <h2>Data:</h2>
+      {scrapeData.hey}
     </div>
   );
 }
