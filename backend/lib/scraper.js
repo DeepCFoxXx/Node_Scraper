@@ -1,6 +1,7 @@
 import axios from "axios";
 import cheerio from "cheerio";
 import db from "./db";
+import moment from "moment";
 
 export async function getHTML(url) {
   const { data: html } = await axios.get(url);
@@ -38,17 +39,17 @@ export async function runCron() {
   console.log("Scraping!");
   const [iCount, tCount] = await Promise.all([
     getInstagramCount(),
-    getTwitterCount()
+    getTwitterCount(),
   ]);
   console.log(iCount, tCount);
   db.get("twitter")
     .push({
-      date: Date.now(),
-      count: tCount
+      date: moment().format("MMMM Do YYYY, h:mm:ss a"),
+      count: tCount,
     })
     .write();
   db.get("instagram")
-    .push({ date: Date.now(), count: iCount })
+    .push({ date: moment().format("MMMM Do YYYY, h:mm:ss a"), count: iCount })
     .write();
   console.log("Done!");
 }
