@@ -1,22 +1,41 @@
 {
-  "name": "node_web_scraper",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "dev": "nodemon -r esm index.js --ignore db.json"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "axios": "^0.19.2",
-    "cheerio": "^1.0.0-rc.3",
-    "esm": "^3.2.25",
-    "express": "^4.17.1",
-    "lowdb": "^1.0.0",
-    "node-cron": "^2.0.3"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.2"
-  }
+	"name": "node_web_scraper",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev": "nodemon -r esm index.js --ignore db.json",
+		"lint": "./node_modules/.bin/eslint",
+		"check": "prettier --check 'node_web_scraper/*.js'"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"axios": "^0.19.2",
+		"cheerio": "^1.0.0-rc.3",
+		"cors": "^2.8.5",
+		"esm": "^3.2.25",
+		"express": "^4.17.1",
+		"lowdb": "^1.0.0",
+		"moment": "^2.24.0",
+		"node-cron": "^2.0.3"
+	},
+	"devDependencies": {
+		"eslint": "^6.8.0",
+		"eslint-config-airbnb": "^18.1.0",
+		"eslint-plugin-import": "^2.20.2",
+		"eslint-plugin-jsx-a11y": "^6.2.3",
+		"eslint-plugin-react": "^7.19.0",
+		"eslint-plugin-react-hooks": "^2.5.0",
+		"husky": "^4.2.5",
+		"lint-staged": "^9.2.5",
+		"nodemon": "^2.0.2",
+		"prettier": "^2.0.5"
+	},
+	"lint-staged": {
+		"*.js": [
+			"prettier --write",
+			"git add"
+		]
+	}
 }
