@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import uniqueCount from './lib/utils';
 import { getInstagramCount, getTwitterCount } from './lib/scraper';
 import './lib/cron';
 import db from './lib/db';
@@ -14,8 +15,10 @@ app.get('/scrape', async (req, res, next) => {
 });
 
 app.get('/data', async (req, res, next) => {
-	const twitter = db.get('twitter').value;
-	res.json(twitter);
+	const { twitter, instagram } = db.value();
+	const unqiueTwitter = uniqueCount(twitter);
+	const unqiueInstagram = uniqueCount(instagram);
+	res.json({ twitter: unqiueTwitter, instagram: unqiueInstagram });
 });
 
 app.listen(2093, () => console.log(`App Running On Port http://localhost:2093`));
